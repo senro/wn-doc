@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>等比例缩放iframe内容demo</title>
+    <meta name="description"
+          content="《九阴真经》是蜗牛公司致力重新诠释传统中国武侠文化的大型多人网络游戏,在崭新设计思维和中国风美术画面基础上,以真武侠为理念构建在线江湖,注入无等级、创新PK、奇遇等一系列划武侠网游时代先河的元素,还原了一个真实恢弘的武侠江湖世界。"/>
+    <meta name="keywords" content="九阴真经,九阴真经,九阴真经ol,九阴,九阴官网,九阴真经官方网站,侠客行,真武侠,网游,武侠网游,武侠游戏,蜗牛,蜗牛游戏"/>
+    <meta name="gameId" content="10"/>
+    <meta name="copyright" content="苏州蜗牛数字科技股份有限公司"/>
+    <meta name="author" content="xxx"/>
+    <link rel="stylesheet" type="text/css" href="http://static.woniu.com/stylesheets/base.css"/>
+    <style type="text/css">
+        #f1 {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<script type="text/javascript">
+
+    //获取浏览器名称
+
+    function getbrowser() {
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        var isOpera = userAgent.indexOf("Opera") > -1;
+
+        if (isOpera) {
+            return "Opera"
+        }//判断是否Opera浏览器
+        if (userAgent.indexOf("Firefox") > -1) {
+            return "FF";
+        } //判断是否Firefox浏览器
+        if (userAgent.indexOf("Safari") > -1) {
+            return "Safari";
+        } //判断是否Safari浏览器
+        if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+            return "IE";
+        }
+
+        //判断是否IE浏览器
+    }
+    //进行缩放
+    //el 要缩放的dom对象
+    //xSacle x方向缩放的大小
+    //yScale y方向缩放的大小
+    function zoomEle(el, xScale, yScale) {
+        var name = getbrowser();
+        style = el.getAttribute('style') || "";
+        if (name == "IE") {
+            if (document.compatMode == "CSS1Compat") {//模式匹配 解决ie8下兼容模式
+                el.style.width = el.clientWidth * 2.0;
+                el.style.height = el.clientHeight * 2.0;
+            }
+            el.style.zoom = xScale;
+        } else if (name == "FF") {
+            el.style.transform = 'scale(' + xScale + ', ' + yScale + ')';
+            el.style.transformOrigin = '0px 0px';
+        } else {
+            el.setAttribute('style', style + '-webkit-transform: scale(' + xScale + ', ' + yScale + '); -webkit-transform-origin: 0px 0px;');
+        }
+    }
+</script>
+
+<body style="overflow-x:hidden;">
+<iframe src="file:///D:/senro/senro/git/company/wn/wn-test/spm_modules/wn-9yin-nav/0.0.4/examples/demo.html" width="1000" height="1000" id="f1" scrolling="no"></iframe>
+
+<script type="text/javascript">
+    zoomEle(document.getElementById('f1'),0.1,0.1);
+</script>
+</body>
+</html>
